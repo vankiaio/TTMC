@@ -1,12 +1,12 @@
 FROM eosio/builder as builder
 ARG branch=master
-ARG symbol=VKT
+ARG symbol=TTMC
 
-RUN git clone -b $branch https://github.com/vankiaio/vkt.git --recursive \
-    && cd vkt && echo "$branch:$(git rev-parse HEAD)" > /etc/eosio-version \
+RUN git clone -b $branch https://github.com/vankiaio/TTMC.git --recursive \
+    && cd TTMC && echo "$branch:$(git rev-parse HEAD)" > /etc/eosio-version \
     && cmake -H. -B"/tmp/build" -GNinja -DCMAKE_BUILD_TYPE=Release -DWASM_ROOT=/opt/wasm -DCMAKE_CXX_COMPILER=clang++ \
        -DCMAKE_C_COMPILER=clang -DCMAKE_INSTALL_PREFIX=/tmp/build -DBUILD_MONGO_DB_PLUGIN=true -DCORE_SYMBOL_NAME=$symbol \
-       -DEOSIO_ROOT_KEY=VKT8J1Nu3f6NCWbPPZ8DwVM4XSLTfDhFdwPrgvyVzKrH85KwKh365 \
+       -DEOSIO_ROOT_KEY=TTMC5Abuaj4J8s84iP2trr4rthNTGqBV3QhtLWZaPaNxR1gFMHJnYH \
     && cmake --build /tmp/build --target install && rm /tmp/build/bin/eosiocpp
 
 
@@ -14,15 +14,15 @@ FROM ubuntu:18.04
 LABEL author="LiYi@vankia.cn" \
   maintainer="vankia.io" \
   version="1.3.2" \
-  description="This is an vankiaio/vkt image"
+  description="This is an vankiaio/TTMC image"
 
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -y install openssl ca-certificates && rm -rf /var/lib/apt/lists/*
 COPY --from=builder /usr/local/lib/* /usr/local/lib/
 COPY --from=builder /tmp/build/bin /opt/eosio/bin
 COPY --from=builder /tmp/build/contracts /contracts
-COPY --from=builder /vkt/Docker/config.ini /
+COPY --from=builder /TTMC/Docker/config.ini /
 COPY --from=builder /etc/eosio-version /etc
-COPY --from=builder /vkt/Docker/nodeosd.sh /opt/eosio/bin/nodeosd.sh
+COPY --from=builder /TTMC/Docker/nodeosd.sh /opt/eosio/bin/nodeosd.sh
 ENV EOSIO_ROOT=/opt/eosio
 RUN chmod +x /opt/eosio/bin/nodeosd.sh
 ENV LD_LIBRARY_PATH /usr/local/lib

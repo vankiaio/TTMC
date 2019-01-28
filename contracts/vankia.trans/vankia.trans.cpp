@@ -18,10 +18,10 @@ void accounting::deposit(account_name from, vector<account_record_content> conte
     }
     
     // check the asset of every accout,check the asset veroflow
-    asset temp_asset(0,S(4, VKT));
+    asset temp_asset(0,S(4, TTMC));
     for (auto record_itr = acc_record.begin(); record_itr != acc_record.end(); ++record_itr)
     {
-       eosio_assert(symbol_type(S(4, VKT)).name() == record_itr->assets.symbol.name(), "Deposit asset symbol error");
+       eosio_assert(symbol_type(S(4, TTMC)).name() == record_itr->assets.symbol.name(), "Deposit asset symbol error");
        temp_asset += record_itr->assets;
        eosio_assert(record_itr->assets.is_valid(),"Deposit asset error");
        eosio_assert(temp_asset.is_valid(),"Deposit asset error");
@@ -29,7 +29,7 @@ void accounting::deposit(account_name from, vector<account_record_content> conte
     }
 
     // check the asset of from is enough,check the asset veroflow
-    asset from_banlance  = token( N(eosio.token)).get_balance(from,symbol_type(S(4, VKT)).name());
+    asset from_banlance  = token( N(eosio.token)).get_balance(from,symbol_type(S(4, TTMC)).name());
     eosio_assert(from_banlance.is_valid(),"Deposit asset error");
     eosio_assert(from_banlance>=temp_asset,"Deposit balance of from account is not enough");
 
@@ -51,7 +51,7 @@ void accounting::deposit(account_name from, vector<account_record_content> conte
         {
             list.modify(itr, 0, [&](auto &tmp_record) {
                 eosio_assert(BOOL_POSITIVE == itr->flag || BOOL_NAGETIVE == itr->flag, "invalid bool_positive");
-                eosio_assert(symbol_type(S(4, VKT)).name() == itr->assets.symbol.name(), "Deposit asset symbol error");
+                eosio_assert(symbol_type(S(4, TTMC)).name() == itr->assets.symbol.name(), "Deposit asset symbol error");
                 eosio_assert(record_itr->assets.symbol.name() == itr->assets.symbol.name(), "invalid bool_positive");
                 tmp_record.account_time = current_time();
                 if (BOOL_POSITIVE == itr->flag)
