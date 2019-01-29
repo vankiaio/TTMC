@@ -5,9 +5,9 @@
 *.bc
 #*.wast
 *.wast.hpp
-*.wasm
+#*.wasm
 *.s
-*.dot
+#*.dot
 *.abi.hpp
 #*.cmake
 *.ninja
