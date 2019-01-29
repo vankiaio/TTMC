@@ -8,7 +8,7 @@
 #*.wasm
 *.s
 #*.dot
-*.abi.hpp
+#*.abi.hpp
 #*.cmake
 *.ninja
 \#*
@@ -23,7 +23,7 @@ compile_commands.json
 moc_*
 *.moc
 
-genesis.json
+#genesis.json
 hardfork.hpp
 
 libraries/utilities/git_revision.cpp
