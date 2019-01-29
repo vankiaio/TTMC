@@ -3,13 +3,13 @@
 *.dylib
 *.ll
 *.bc
-#*.wast
+*.wast
 *.wast.hpp
-#*.wasm
+*.wasm
 *.s
-#*.dot
-#*.abi.hpp
-#*.cmake
+*.dot
+*.abi.hpp
+*.cmake
 *.ninja
 \#*
 \.#*
@@ -23,7 +23,7 @@ compile_commands.json
 moc_*
 *.moc
 
-#genesis.json
+genesis.json
 hardfork.hpp
 
 libraries/utilities/git_revision.cpp
